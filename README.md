@@ -1,3 +1,5 @@
+torchrun --nproc_per_node 1 export.py     --ckpt_dir llama-2-7b/     --tokenizer_path tokenizer.model     --max_seq_len 512 --max_batch_size 6
+
 # Llama 2
 
 We are unlocking the power of large language models. Our latest version of Llama is now accessible to individuals, creators, researchers and businesses of all sizes so that they can experiment, innovate and scale their ideas responsibly. 

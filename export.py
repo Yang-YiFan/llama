@@ -42,10 +42,12 @@ def main(
 
     model = generator.model
 
+    EnsureDirExists(tensor_dir)
+
     for n, m in model.named_modules():
         # export linear
         if isinstance(m, ColumnParallelLinear) or isinstance(m, RowParallelLinear):
-            #print(n, m, m.weight.shape)
+            print(n, m, m.weight.shape)
             #prune.l1_unstructured(m, name="weight", amount=0.0)
             weight = m.weight.detach().cpu().numpy()
             np.save(f"{tensor_dir}/{n}.npy", weight)
@@ -64,4 +66,4 @@ if __name__ == "__main__":
 
     tensor_dir = f"/scratch/yifany/sconv/inputs/{args.ckpt_dir}"
 
-    main(tensor_dir, args.ckpt_dir, args.tokenizer_path, args.max_seq_len, args.max_batch_size)
+    main(tensor_dir, args.ckpt_dir, args.tokenizer_path, int(args.max_seq_len), int(args.max_batch_size))
